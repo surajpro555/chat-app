@@ -1,5 +1,6 @@
 import Message from "../models/message.model.js";
 import Conversation from "../models/conversation.model.js";
+import { getReceiverSocketId } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
     try {
@@ -31,6 +32,17 @@ export const sendMessage = async (req, res) => {
         // await conversation.save();
 
         await Promise.all([newMessage.save(),conversation.save()]); // To save both the message and conversation at the same time
+
+        //Socket functionality here
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId){
+            // newMessage event is used to send the message to the receiver to specific client
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
+        else{
+            console.log("Receiver is offline....");
+        }
+
 
         res.status(201).json(newMessage);
 
