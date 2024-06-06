@@ -32,7 +32,7 @@ export const sendMessage = async (req, res) => {
 
         await Promise.all([newMessage.save(),conversation.save()]); // To save both the message and conversation at the same time
 
-        res.status(201).json({ message: "Message sent successfully" });
+        res.status(201).json(newMessage);
 
     } catch (error) {
         console.log("Error in sending message....:", error.message);
@@ -54,7 +54,7 @@ export const getMessages = async (req, res) => {
             return res.status(200).json({ messages: [] });
         }
         
-        res.status(200).json({ messages: conversation.messages });
+        res.status(200).json(conversation.messages);
 
     } catch (error) {
         console.log("Error in getting messages....:", error.message);
