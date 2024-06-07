@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleSubmit = async(e) => {
 		e.preventDefault();
-		console.log(inputs);
+		// console.log(inputs);
 		await login(inputs);
 	}
 

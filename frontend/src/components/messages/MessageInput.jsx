@@ -10,7 +10,7 @@ const MessageInput = () => {
 	const handleSubmit = async(e) => {
 		e.preventDefault();
 		if(!message.trim()) return;
-    console.log(message);
+    // console.log(message);
 		await sendMessage(message);
 		setMessage("");
 	}
