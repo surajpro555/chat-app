@@ -25,16 +25,15 @@ export const signup = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     // https://avatar-placeholder.iran.liara.run/public/boy?username=${} // same for girl
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?${username}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const newUser = new User({
       fullName,
       username,
       password: hashPassword,
       gender,
-     // profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
-     profilePic:'/images/yy.jpg'
+     profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
 
     if (newUser) {
